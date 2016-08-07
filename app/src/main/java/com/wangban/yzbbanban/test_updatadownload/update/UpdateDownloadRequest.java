@@ -3,6 +3,7 @@ package com.wangban.yzbbanban.test_updatadownload.update;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.lang.*;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by YZBbanban on 16/8/7.
@@ -58,8 +61,8 @@ public class UpdateDownloadRequest implements Runnable {
     @Override
     public void run() {
         try {
+            Log.i(TAG, "run: "+"执行Run()方法");
             makeRequst();
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

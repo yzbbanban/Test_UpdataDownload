@@ -1,7 +1,11 @@
 package com.wangban.yzbbanban.test_updatadownload.update;
 
+import android.util.Log;
+
 import java.io.File;
 import java.util.concurrent.*;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by YZBbanban on 16/8/7.
@@ -31,13 +35,17 @@ public class UpdateManager {
             return;
         }
         checkLocalFilePath(localPath);
+
         request = new UpdateDownloadRequest(downloadUrl, localPath, listener);
+        Log.i(TAG, "startDownload: "+localPath);
         Future<?> future = threadPoolExecutor.submit(request);
+
 
     }
 
     private void checkLocalFilePath(String path) {
         File dir = new File(path.substring(0, path.lastIndexOf("/")) + 1);
+        Log.i(TAG, "checkLocalFilePath: "+dir);
         if (dir.exists()) {
             dir.mkdir();
         }

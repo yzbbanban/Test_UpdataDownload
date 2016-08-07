@@ -8,10 +8,13 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.wangban.yzbbanban.test_updatadownload.R;
 
 import java.io.File;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by YZBbanban on 16/8/7.
@@ -25,11 +28,12 @@ public class UpdateService extends Service {
     private Notification mNotification;
     private PendingIntent intent;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        filepath = Environment.getExternalStorageDirectory() + "/riti/elocation.apk";
+        filepath = Environment.getExternalStorageDirectory() + "/Test.apk";
     }
 
     @Override
@@ -39,6 +43,7 @@ public class UpdateService extends Service {
             stopSelf();
         }
         apkURL = intent.getStringExtra("apkURL");
+//        Log.i(TAG, "onStartCommand: " + apkURL);
         notifyUser("下载", "下载开始", 0);
         startDownload();
         return super.onStartCommand(intent, flags, startId);
@@ -87,7 +92,10 @@ public class UpdateService extends Service {
         builder.setTicker(result);
         builder.setContentIntent(progress >= 100 ? getContentIntent() : PendingIntent.getActivity(this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT));
         mNotification = builder.build();
+
         notificationManager.notify(0, mNotification);
+
+
 
 
     }
